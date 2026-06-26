@@ -1,17 +1,12 @@
-# Python + Playwright ke liye official image
 FROM mcr.microsoft.com/playwright/python:v1.44.0-jammy
 
 WORKDIR /app
 
-# Dependencies install karo
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Source code copy karo
 COPY . .
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-# Port expose karo (Railway $PORT use karta hai, default 8000)
-EXPOSE 8000
-
-# Shell form use karo taake $PORT variable expand ho
-CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+CMD ["/start.sh"]
