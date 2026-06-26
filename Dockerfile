@@ -10,8 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Source code copy karo
 COPY . .
 
-# Port expose karo
+# Port expose karo (Railway $PORT use karta hai, default 8000)
 EXPOSE 8000
 
-# App chalaao
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Shell form use karo taake $PORT variable expand ho
+CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
